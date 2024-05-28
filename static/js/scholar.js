@@ -11,7 +11,7 @@ $(document).ready(function () {
             element.getAttribute('data').split(",").forEach(paperId => {
                 numCitations += data['publications'][paperId]['num_citations']
             })
-            element.innerHTML = numCitations + "cites";
+            element.innerHTML = numCitations + " Cites";
         });
     });
 })
