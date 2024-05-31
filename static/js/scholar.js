@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var gsDataBaseUrl = 'https://cdn.jsdelivr.net/gh/GPTScan/GPTScan.github.io@'
+    var gsDataBaseUrl = 'https://cdn.jsdelivr.net/gh/ZepScope/ZepScope.github.io@'
     $.getJSON(gsDataBaseUrl + "google-scholar-stats/gs_data.json", function (data) {
         var totalCitation = data['citedby']
         if (document.getElementById('total_cit')!=null){  

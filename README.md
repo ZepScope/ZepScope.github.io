@@ -1,3 +1,3 @@
-# GPTScan.github.io
+# ZepScope.github.io
 
-The homepage of GPTScan.
+The homepage of ZepScope.

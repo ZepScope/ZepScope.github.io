@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GPTScan: A LLM-Empowered Logic Bug Scanner for Solidity</title>
+    <title>ZepScope: A Tool for Detecting Inscure OpenZeppelin Code</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css"
         rel="stylesheet">
@@ -20,11 +20,11 @@
                 <div class="column is-centered">
                     <div class="column has-text-centered">
                         <h1 class="title is-1 publication-title">
-                            GPTScan: Detecting Logic Vulnerabilities in Smart Contracts by Combining GPT with Program Analysis
+                            Using My Functions Should Follow My Checks: Understanding and Detecting Insecure OpenZeppelin Code in Smart Contracts
                         </h1>
                         <div class="column has-text-centered">
                             <span class="link-block">
-                                <a href="https://dl.acm.org/doi/abs/10.1145/3597503.3639117"
+                                <a href="#"
                                     class="external-link button is-dark is-rounded ">
                                     <span class="icon">
                                         <i class="fas fa-file-pdf"></i>
@@ -33,7 +33,7 @@
                                 </a>
                             </span>
                             <span class="link-block">
-                                <a href="https://arxiv.org/abs/2308.03314"
+                                <a href="#"
                                     class="external-link button is-dark is-rounded ">
                                     <span class="icon">
                                         <i class="ai ai-arxiv"></i>
@@ -41,9 +41,18 @@
                                     <span>arXiv</span>
                                 </a>
                             </span>
+                            <span class="link-block">
+                                <a href="#"
+                                    class="external-link button is-dark is-rounded ">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Supplementary</span>
+                                </a>
+                            </span>
                             <!-- Code Link. -->
                             <span class="link-block">
-                                <a href="https://github.com/GPTScan/GPTScan"
+                                <a href="https://github.com/ZepScope/ZepScope"
                                     class="external-link button is-dark is-rounded ">
                                     <span class="icon">
                                         <i class="fab fa-github"></i>
@@ -74,37 +83,26 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Smart contracts are prone to various vulnerabilities, leading to substantial financial
-                            losses over time. Current analysis tools mainly target vulnerabilities with fixed control-
-                            or data-flow patterns, such as re-entrancy and integer overflow. However, a recent study on
-                            Web3 security bugs revealed that about 80% of these bugs cannot be audited by existing tools
-                            due to the lack of domain-specific property description and checking. Given recent advances
-                            in Large Language Models (LLMs), it is worth exploring how Generative Pre-training
-                            Transformer (GPT) could aid in detecting logic vulnerabilities.
+                            OpenZeppelin is a popular framework for building smart contracts. It provides common libraries (e.g., SafeMath), implementations of Ethereum standards (e.g., ERC20), and reusable components for access control and upgradability. However, unlike traditional software libraries, which are typically imported as static linking libraries or dynamic loading libraries, OpenZeppelin is utilized by Solidity contracts in the form of source code. As a result, developers often make custom modifications to their copies of OpenZeppelin code, which may lead to unintended security consequences.
                         </p>
                         <!--          <p>-->
                         <!--           k<b><span id="totalnum">123</span></b>-->
                         <!--          </p>-->
                         <div style="text-align: center;">
-                            <img src="static/images/GPTScanWorkflow.svg"
-                                style="width:900px !important;height:auto !important;">
+                            <img src="static/images/overview.svg"
+                                style="width:450px !important;height:auto !important;">
                         </div>
                         <p>
-                            In this paper, we propose GPTScan, the first tool combining GPT with static analysis for
-                            smart contract logic vulnerability detection. Instead of relying solely on GPT to identify
-                            vulnerabilities, which can lead to high false positives and is limited by GPT's pre-trained
-                            knowledge, we utilize GPT as a versatile code understanding tool. By breaking down each
-                            logic vulnerability type into scenarios and properties, GPTScan matches candidate
-                            vulnerabilities with GPT. To enhance accuracy, GPTScan further instructs GPT to
-                            intelligently recognize key variables and statements, which are then validated by static
-                            confirmation. Evaluation on diverse datasets with around 400 contract projects and 3K
-                            Solidity files shows that GPTScan achieves high precision (over 90%) for token contracts and
-                            acceptable precision (57.14%) for large projects like Web3Bugs. It effectively detects
-                            ground-truth logic vulnerabilities with a recall of over 70%, including 9 new
-                            vulnerabilities missed by human auditors. GPTScan is fast and cost-effective, taking an
-                            average of 14.39 seconds and 0.01 USD to scan per thousand lines of Solidity code. Moreover,
-                            static confirmation helps GPTScan reduce two-thirds of false positives.
+                            In this paper, we conduct the first systematic study on the security of OpenZeppelin code used in real-world contracts. Specifically, we focus on the security checks in the official OpenZeppelin library and examine whether they are faithfully enforced in the relevant OpenZeppelin functions of real contracts. To this end, we propose a novel tool named ZepScope that comprises two components: MINER and CHECKER. First, MINER analyzes the official OpenZeppelin functions to extract the facts of explicit checks (i.e., the checks defined within the functions) and implicit checks (i.e., the conditions of calling the functions). Second, based on the facts extracted by MINER, CHECKER examines real contracts to identify their OpenZeppelin functions, match their checks with those in the facts, and validate the consequences for those inconsistent checks. By overcoming multiple challenges in developing ZepScope, we obtain not only the first taxonomy of OpenZeppelin checks but also the comprehensive results of checking the top 35,882 contracts from three mainstream blockchains.
                         </p>
+                        <div style="text-align: center;">
+                            <img src="static/images/zepMiner.svg"
+                                style="width:1200px !important;height:auto !important;">
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="static/images/zepChecker.svg"
+                                style="width:1200px !important;height:auto !important;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,20 +114,7 @@
                     <div class="content has-text-justified">
                         <article class="message is-primary">
                             <pre class="message-body" id="bibtex-text">
-@inproceedings{sun2024gptscan,
-    author = {Sun, Yuqiang and Wu, Daoyuan and Xue, Yue and Liu, Han and Wang, Haijun and Xu, Zhengzi and Xie, Xiaofei and Liu, Yang},
-    title = {{GPTScan}: Detecting Logic Vulnerabilities in Smart Contracts by Combining GPT with Program Analysis},
-    year = {2024},
-    isbn = {9798400702174},
-    publisher = {Association for Computing Machinery},
-    address = {New York, NY, USA},
-    url = {https://doi.org/10.1145/3597503.3639117},
-    doi = {10.1145/3597503.3639117},
-    booktitle = {Proceedings of the IEEE/ACM 46th International Conference on Software Engineering},
-    articleno = {166},
-    numpages = {13},
-    series = {ICSE '24}
-}</pre>
+                                BibTex Code Here</pre>
                         </article>
                     </div>
                 </div>
@@ -137,7 +122,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <!-- <section class="section">
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
@@ -157,7 +142,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <section class="section">
             <div class="container is-max-desktop">
@@ -168,30 +153,31 @@
                         <div class="column">
                             <table width="100%">
                                 <tr>
-                                    <td width="25%"><img class="custom-style" src="static/images/yuqiang.jpg">
+                                    <td width="25%"><img class="custom-style" src="static/images/liuhan.jpg">
                                     </td>
                                     <td width="25%"><img class="custom-style" src="static/images/daoyuan.jpg">
                                     </td>
-                                    <td width="25%"><img class="custom-style" src="static/images/avatar_scholar_256.png">
+                                    <td width="25%"><img class="custom-style" src="static/images/yuqiang.jpg">
                                     </td>
-                                    <td width="25%"><img class="custom-style" src="static/images/liuhan.jpg">
+                                    <td width="25%"><img class="custom-style" src="static/images/haijun.jpg">
                                     </td>
                                 </tr>
                                 <table>
                                     <table width="100%">
                                         <tr>
+                                            <td width="25%"><a href="https://helayliu.github.io/">
+                                                <span class="tag is-light">Han Liu</span>
+                                            </a></td>
+                                            <td width="25%"><a href="https://daoyuan14.github.io/">
+                                                <span class="tag is-light">Daoyuan Wu</span>
+                                            </a></td>
                                             <td width="25%"><a href="https://aboutme.izaiahsun.com/">
                                                     <span class="tag is-light">Yuqiang Sun</span>
-                                                </a></td>
-                                            <td width="25%"><a href="https://daoyuan14.github.io/">
-                                                    <span class="tag is-light">Daoyuan Wu</span>
-                                                </a></td>
+                                            </a></td>
                                             <td width="25%"><a href="#">
-                                                    <span class="tag is-light">Yue Xue</span>
-                                                </a></td>
-                                            <td width="25%"><a href="https://helayliu.github.io/">
-                                                    <span class="tag is-light">Han Liu</span>
-                                                </a></td>
+                                                <span class="tag is-light">Haijun Wang</span>
+                                            </a></td>
+
                                         </tr>
                                     </table>
                                 </table>
@@ -200,30 +186,25 @@
                             <br>
                             <table width="100%">
                                 <tr>
-                                    <td width="25%"><img class="custom-style" src="static/images/haijun.jpg">
-                                    </td>
-                                    <td width="25%"><img class="custom-style" src="static/images/zhengzi.jpg">
-                                    </td>
-                                    <td width="25%"><img class="custom-style" src="static/images/xiaofei.jpg">
+                                    <td width="25%"><img class="custom-style" src="static/images/kaixuanli.jpg">
                                     </td>
                                     <td width="25%"><img class="custom-style" src="static/images/liuyang.jpg">
+                                    </td>
+                                    <td width="25%"><img class="custom-style" src="static/images/yixiangchen.jpg">
                                     </td>
                                 </tr>
                                 <table>
                                     <table width="100%">
                                         <tr>
-                                            <td width="25%"><a href="#">
-                                                    <span class="tag is-light">Haijun Wang</span>
-                                                </a></td>
                                             <td width="25%"><a
-                                                    href="https://scholar.google.com/citations?user=zr6yQtsAAAAJ&hl=en">
-                                                    <span class="tag is-light">Zhengzi Xu</span>
-                                                </a></td>
-                                            <td width="25%"><a href="https://xiaofeixie.bitbucket.io/">
-                                                    <span class="tag is-light">Xiaofei Xie</span>
+                                                    href="https://kaixuanli-ecnu.github.io/">
+                                                    <span class="tag is-light">Kaixuan Li</span>
                                                 </a></td>
                                             <td width="25%"><a href="https://personal.ntu.edu.sg/yangliu/">
                                                     <span class="tag is-light">Yang Liu</span>
+                                                </a></td>
+                                            <td width="25%"><a href="#">
+                                                <span class="tag is-light">Yixiang Chen</span>
                                                 </a></td>
                                         </tr>
                                     </table>
